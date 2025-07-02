@@ -1,5 +1,5 @@
 # BypassBoard
-Fuck paywall, this is a repo for poor people
+Fuck paid clients, this is a repo for poor people
 
 
 # IMPORTANT
