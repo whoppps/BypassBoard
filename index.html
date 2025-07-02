@@ -13,9 +13,7 @@
       --accent: #171717;
       --footer: #888;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       background: var(--bg);
@@ -27,8 +25,6 @@
       min-height: 100vh;
       text-align: center;
     }
-
-    /* Nav */
     nav {
       width: 100%;
       background: var(--accent);
@@ -55,8 +51,6 @@
     nav a:hover {
       color: var(--blue2);
     }
-
-    /* Hero */
     .hero {
       flex: 1;
       display: flex;
@@ -81,8 +75,6 @@
       margin-left: auto;
       margin-right: auto;
     }
-
-    /* Button */
     .btn {
       display: inline-block;
       margin-top: 2rem;
@@ -100,8 +92,6 @@
       transform: translateY(-3px);
       box-shadow: 0 0 20px rgba(0, 114, 255, 0.7);
     }
-
-    /* Footer */
     footer {
       padding: 1rem 0;
       color: var(--footer);
@@ -110,30 +100,22 @@
   </style>
 </head>
 <body>
-
-  <!-- Navigation -->
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="clients.html">Clients</a></li>
     </ul>
   </nav>
-
-  <!-- Hero Section -->
   <div class="hero">
     <h1>Welcome to <span id="cycling-text" class="highlight">NoPayWall</span></h1>
     <p>NoPayWall is a hobby project focused on user interface, testing status, and web development learning.</p>
     <a href="clients.html" class="btn">View Clients</a>
   </div>
-
-  <!-- Footer -->
   <footer>Made with ❤️ by whoppps</footer>
-
   <script>
     const phrases = ["NoPayWall", "Cracked clients", "FuckPaywall"];
     const el = document.getElementById("cycling-text");
     let i = 0;
-
     setInterval(() => {
       i = (i + 1) % phrases.length;
       el.style.opacity = 0;
@@ -143,6 +125,5 @@
       }, 500);
     }, 2000);
   </script>
-
 </body>
 </html>
