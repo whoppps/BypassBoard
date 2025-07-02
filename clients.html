@@ -10,14 +10,13 @@
       --nav-bg: #171717;
       --accent-bg: #1e1e1e;
       --text: #f0f0f0;
-      --primary: #4caf50;
-      --danger: #f44336;
-      --blue: #00c6ff;
+      --primary: #00c6ff;    /* blue for checked */
+      --danger: #f44336;     /* red for unchecked */
+      --blue1: #0072ff;
+      --blue2: #00c6ff;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -50,7 +49,7 @@
       transition: color 0.2s;
     }
     nav a:hover {
-      color: var(--blue);
+      color: var(--blue2);
     }
 
     /* Hero */
@@ -62,7 +61,7 @@
     header.hero h1 {
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      background: linear-gradient(90deg, var(--blue2), var(--blue1));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -70,7 +69,6 @@
       font-size: 1.1rem;
       max-width: 600px;
       margin: 0 auto;
-      color: var(--text);
     }
 
     /* Controls */
@@ -93,7 +91,7 @@
       transition: border-color 0.2s;
     }
     .search-bar:focus {
-      border-color: var(--blue);
+      border-color: var(--blue2);
     }
     .filter-btn {
       padding: 0.7rem 1.4rem;
@@ -107,17 +105,22 @@
     }
     .filter-btn.active,
     .filter-btn:hover {
-      background: var(--blue);
+      background: var(--blue2);
       color: #fff;
     }
 
-    /* Grid */
+    /* Grid (hidden by default) */
     .client-grid {
-      display: grid;
+      display: none;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.5rem;
       padding: 2rem 1rem;
     }
+    .client-grid.show {
+      display: grid;
+    }
+
+    /* Cards */
     .client-card {
       background: var(--accent-bg);
       border-radius: 12px;
@@ -132,9 +135,8 @@
       content: "";
       position: absolute;
       top: 0; left: 0;
-      width: 100%;
-      height: 4px;
-      background: var(--blue);
+      width: 100%; height: 4px;
+      background: var(--blue2);
     }
     .client-card:hover {
       transform: translateY(-5px);
@@ -189,7 +191,7 @@
     .modal-box a {
       display: inline-block;
       padding: 0.6rem 1rem;
-      background: var(--blue);
+      background: var(--blue2);
       color: white;
       border-radius: 6px;
       text-decoration: none;
@@ -198,7 +200,7 @@
       transition: background 0.2s;
     }
     .modal-box a:hover {
-      background: #0072ff;
+      background: var(--blue1);
     }
     .modal-box .close {
       position: absolute;
@@ -242,7 +244,7 @@
     <button class="filter-btn" onclick="filterStatus('unchecked')">Unchecked</button>
   </div>
 
-  <!-- Client Grid -->
+  <!-- Client Grid (hidden until search/filter) -->
   <div class="client-grid" id="clientGrid"></div>
 
   <!-- Modal -->
@@ -258,72 +260,70 @@
   <!-- Script -->
   <script>
     const clients = [
-      { name: "Rise", status: "checked", info: "One of the most trustworthy clients out there, very recommend.", link: "https://drive.google.com/file/d/1vcHxzCuYUlljzBtMp8jtcS0V-uUN9QIo/view?usp=drive_link" },
-      { name: "Slinky", status: "unchecked", info: "It's kinda a sketchy client, use at your own risk.", link: "https://drive.google.com/file/d/1Nf_UJMpysIqLg3yLLTkoBYVuzyFXrASU/view?usp=drive_link" },
-      { name: "Opal", status: "checked", info: "Made for Hypixel, has very good bypasses.", link: "https://drive.google.com/file/d/1depGl4bl3P8LyDx-fKuSQ267dinglaK8/view?usp=drive_link" },
-      { name: "Vape", status: "checked", info: "One of the most trustworthy clients out there, but hasn't received an update in a long time.", link: "https://drive.google.com/file/d/15kipNJZBRyeMZgjJQHrkh7NnpB886CqZ/view?usp=drive_link" },
-      { name: "Myau", status: "unchecked", info: "Very good for Hypixel.", link: "https://drive.google.com/file/d/1-Wa5xFJHp93g_WnH2y4p4rkyREAXF8vN/view?usp=drive_link" },
-      { name: "Moon", status: "unchecked", info: "Discontinued, but has the cleanest interface.", link: "https://drive.google.com/file/d/1BsUxMMdLZJJItMWmuiHVRrdKTmEXCKUz/view?usp=drive_link" },
-      { name: "Augustus", status: "checked", info: "Very good bypasses, but hard to use for beginners.", link: "https://drive.google.com/file/d/1t575rr-972Yzw4DjBU5K22gdu24IhwW8/view?usp=drive_link" },
-      { name: "Azura", status: "unchecked", info: "Random NN client.", link: "https://drive.google.com/file/d/1AtUa38XywmtYDOlBoHUlthQmXLesjkFh/view?usp=drive_link" },
-      { name: "Sigma", status: "unchecked", info: "Outdated af client.", link: "https://drive.google.com/file/d/1rJrXufoGN5apzRi0VgDQrX8i7ZQz6vA5/view?usp=drive_link" },
-      { name: "Fdp", status: "unchecked", info: "It's just a LiquidBounce skid.", link: "https://drive.google.com/file/d/1XJuDH4yT5BpRxnpBhF70Vl8zg--NfZY5/view?usp=drive_link" },
-      { name: "Dortware", status: "unchecked", info: "Random NN client.", link: "https://drive.google.com/file/d/1GuuwrmAKxBDyQ4wSMxFUir_XnrF-vv5E/view?usp=drive_link" },
-      { name: "Raven BS", status: "unchecked", info: "Decent client, with slow updates.", link: "https://drive.google.com/file/d/1Yq3zWFN-15gLkW9V-rLQ68eKKB8MF8o1/view?usp=drive_link" }
+      { name: "Rise",    status: "checked",   info: "One of the most trustworthy clients out there, very recommend.", link: "https://drive.google.com/.../1vcHxzCuYUlljzBtMp8jtcS0V-uUN9QIo" },
+      { name: "Slinky",  status: "unchecked", info: "It's kinda a sketchy client, use at your own risk.", link: "https://drive.google.com/.../1Nf_UJMpysIqLg3yLLTkoBYVuzyFXrASU" },
+      { name: "Opal",    status: "checked",   info: "Made for Hypixel, has very good bypasses.", link: "https://drive.google.com/.../1depGl4bl3P8LyDx-fKuSQ267dinglaK8" },
+      { name: "Vape",    status: "checked",   info: "One of the most trustworthy clients out there, but hasn't received an update in a long time.", link: "https://drive.google.com/.../15kipNJZBRyeMZgjJQHrkh7NnpB886CqZ" },
+      { name: "Myau",    status: "unchecked", info: "Very good for Hypixel.", link: "https://drive.google.com/.../1-Wa5xFJHp93g_WnH2y4p4rkyREAXF8vN" },
+      { name: "Moon",    status: "unchecked", info: "Discontinued, but has the cleanest interface.", link: "https://drive.google.com/.../1BsUxMMdLZJJItMWmuiHVRrdKTmEXCKUz" },
+      { name: "Augustus",status: "checked",   info: "Very good bypasses, but hard to use for beginners.", link: "https://drive.google.com/.../1t575rr-972Yzw4DjBU5K22gdu24IhwW8" },
+      { name: "Azura",   status: "unchecked", info: "Random NN client.", link: "https://drive.google.com/.../1AtUa38XywmtYDOlBoHUlthQmXLesjkFh" },
+      { name: "Sigma",   status: "unchecked", info: "Outdated af client.", link: "https://drive.google.com/.../1rJrXufoGN5apzRi0VgDQrX8i7ZQz6vA5" },
+      { name: "Fdp",     status: "unchecked", info: "It's just a LiquidBounce skid.", link: "https://drive.google.com/.../1XJuDH4yT5BpRxnpBhF70Vl8zg--NfZY5" },
+      { name: "Dortware",status: "unchecked", info: "Random NN client.", link: "https://drive.google.com/.../1GuuwrmAKxBDyQ4wSMxFUir_XnrF-vv5E" },
+      { name: "Raven BS",status: "unchecked", info: "Decent client, with slow updates.", link: "https://drive.google.com/.../1Yq3zWFN-15gLkW9V-rLQ68eKKB8MF8o1" }
     ];
 
-    const grid = document.getElementById('clientGrid');
-    const search = document.getElementById('search');
-    const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalInfo = document.getElementById('modal-info');
-    const modalLink = document.getElementById('modal-link');
-    let currentFilter = "all";
+    const grid      = document.getElementById('clientGrid');
+    const search    = document.getElementById('search');
+    const modal     = document.getElementById('modal');
+    const titleEl   = document.getElementById('modal-title');
+    const infoEl    = document.getElementById('modal-info');
+    const linkEl    = document.getElementById('modal-link');
+    let currentFilter = 'all';
 
     function displayClients() {
-      const keyword = search.value.toLowerCase();
-      grid.innerHTML = "";
-      clients.forEach(client => {
-        if (
-          (currentFilter === "all" || client.status === currentFilter) &&
-          client.name.toLowerCase().includes(keyword)
-        ) {
+      const kw = search.value.toLowerCase();
+      grid.innerHTML = '';
+      clients.forEach(c => {
+        if ((currentFilter==='all'||c.status===currentFilter) && c.name.toLowerCase().includes(kw)) {
           const card = document.createElement('div');
-          card.className = "client-card";
+          card.className = 'client-card';
           card.innerHTML = `
-            <p>${client.name}</p>
-            <p class="${client.status === "checked" ? "status-checked" : "status-unchecked"}">
-              ${client.status === "checked" ? "✓ Checked" : "✗ Unchecked"}
+            <p>${c.name}</p>
+            <p class="${c.status==='checked'?'status-checked':'status-unchecked'}">
+              ${c.status==='checked'?'✓ Checked':'✗ Unchecked'}
             </p>`;
-          card.onclick = () => openModal(client);
+          card.onclick = () => openModal(c);
           grid.appendChild(card);
         }
       });
-    }
-
-    function openModal(client) {
-      modalTitle.textContent = client.name;
-      modalInfo.textContent = client.info;
-      modalLink.href = client.link;
-      modal.classList.add("active");
-    }
-
-    function closeModal() {
-      modal.classList.remove("active");
+      // Show grid only after filtering/search
+      grid.classList.toggle('show', grid.children.length > 0);
     }
 
     function filterStatus(status) {
       currentFilter = status;
-      document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-      document.querySelector(`.filter-btn[onclick*="${status}"]`).classList.add("active");
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.filter-btn[onclick*="${status}"]`).classList.add('active');
       displayClients();
     }
 
-    search.addEventListener("input", displayClients);
-    window.onclick = e => { if (e.target === modal) closeModal(); };
+    function openModal(c) {
+      titleEl.textContent = c.name;
+      infoEl.textContent  = c.info;
+      linkEl.href         = c.link;
+      modal.classList.add('active');
+    }
 
-    // Initial render
-    displayClients();
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+
+    search.addEventListener('input', displayClients);
+    window.addEventListener('click', e => { if (e.target===modal) closeModal(); });
+
+    // no initial render: grid remains hidden until search/filter
   </script>
 </body>
 </html>
