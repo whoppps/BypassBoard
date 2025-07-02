@@ -11,6 +11,7 @@
       --blue1: #0072ff;
       --blue2: #00c6ff;
       --accent: #171717;
+      --footer: #888;
     }
 
     * { box-sizing: border-box; }
@@ -99,6 +100,13 @@
       transform: translateY(-3px);
       box-shadow: 0 0 20px rgba(0, 114, 255, 0.7);
     }
+
+    /* Footer */
+    footer {
+      padding: 1rem 0;
+      color: var(--footer);
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
@@ -114,9 +122,12 @@
   <!-- Hero Section -->
   <div class="hero">
     <h1>Welcome to <span id="cycling-text" class="highlight">NoPayWall</span></h1>
-    <p>NoPayWall is a hobby project focused on Minecraft Modding, testing languages, and Reverse engineering.</p>
+    <p>NoPayWall is a hobby project focused on user interface, testing status, and web development learning.</p>
     <a href="clients.html" class="btn">View Clients</a>
   </div>
+
+  <!-- Footer -->
+  <footer>Made with ❤️ by whoppps</footer>
 
   <script>
     const phrases = ["NoPayWall", "Cracked clients", "FuckPaywall"];
