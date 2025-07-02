@@ -19,7 +19,7 @@ Rise: checked
 Slinky: unchecked
 
 
-Opal: 
+Opal: checked
 
 
 Vape: checked
