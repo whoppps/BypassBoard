@@ -1,4 +1,4 @@
-# NoPayWall
+# BypassBoard
 Fuck paywall, this is a repo for poor people
 
 
