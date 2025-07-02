@@ -2,96 +2,156 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NoPayWall Clients</title>
   <style>
     :root {
       --bg: #121212;
-      --card-bg: #1e1e1e;
+      --nav-bg: #171717;
+      --accent-bg: #1e1e1e;
       --text: #f0f0f0;
       --primary: #4caf50;
       --danger: #f44336;
-      --accent: #2e2e2e;
       --blue: #00c6ff;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
-      padding: 2rem;
+      font-family: 'Segoe UI', sans-serif;
     }
 
-    h1 {
+    /* Nav */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--nav-bg);
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      z-index: 100;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: var(--blue);
+    }
+
+    /* Hero */
+    header.hero {
       text-align: center;
+      padding: 3rem 1rem;
+      background: linear-gradient(135deg, rgba(0,198,255,0.1), rgba(0,114,255,0.1));
+    }
+    header.hero h1 {
       font-size: 2.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    header.hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--text);
     }
 
+    /* Controls */
     .controls {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1rem;
-      margin-bottom: 2rem;
+      padding: 2rem 1rem 0;
     }
-
     .search-bar {
-      padding: 0.7rem 1rem;
-      border-radius: 8px;
-      border: none;
-      outline: none;
-      width: 220px;
+      padding: 0.8rem 1rem;
+      width: 240px;
       font-size: 1rem;
+      border: 2px solid var(--accent-bg);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
     }
-
+    .search-bar:focus {
+      border-color: var(--blue);
+    }
     .filter-btn {
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
+      padding: 0.7rem 1.4rem;
       border: none;
+      border-radius: 6px;
+      background: var(--accent-bg);
+      color: var(--text);
       font-weight: bold;
       cursor: pointer;
-      background: var(--accent);
-      color: var(--text);
-      transition: all 0.2s ease;
+      transition: background 0.2s, color 0.2s;
     }
-
-    .filter-btn:hover,
-    .filter-btn.active {
+    .filter-btn.active,
+    .filter-btn:hover {
       background: var(--blue);
-      color: white;
+      color: #fff;
     }
 
+    /* Grid */
     .client-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.5rem;
+      padding: 2rem 1rem;
     }
-
     .client-card {
-      background: var(--card-bg);
+      background: var(--accent-bg);
       border-radius: 12px;
-      padding: 1rem;
-      text-align: center;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 12px rgba(0,0,0,0.25);
+      transition: transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
     }
-
-    .client-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    .client-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--blue);
     }
-
+    .client-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+    .client-card p:first-child {
+      margin: 0;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
     .status-checked {
       color: var(--primary);
-      font-weight: bold;
+      margin-top: 0.5rem;
     }
-
     .status-unchecked {
       color: var(--danger);
-      font-weight: bold;
+      margin-top: 0.5rem;
     }
 
     /* Modal */
@@ -103,54 +163,52 @@
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      z-index: 200;
     }
-
     .modal.active {
       display: flex;
     }
-
     .modal-box {
-      background: var(--card-bg);
+      background: var(--accent-bg);
       padding: 2rem;
       border-radius: 10px;
-      text-align: center;
-      width: 90%;
       max-width: 400px;
+      width: 90%;
+      text-align: center;
       position: relative;
       animation: fadeIn 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-
-    .modal h3 {
+    .modal-box h3 {
       margin-top: 0;
     }
-
-    .modal p {
+    .modal-box p {
       font-size: 0.95rem;
       margin: 1rem 0;
     }
-
-    .modal a {
+    .modal-box a {
       display: inline-block;
-      padding: 0.5rem 1rem;
+      padding: 0.6rem 1rem;
       background: var(--blue);
       color: white;
       border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
       margin-top: 1rem;
+      transition: background 0.2s;
     }
-
-    .modal .close {
+    .modal-box a:hover {
+      background: #0072ff;
+    }
+    .modal-box .close {
       position: absolute;
-      top: 10px;
-      right: 15px;
+      top: 10px; right: 15px;
       font-size: 1.5rem;
       cursor: pointer;
       color: #999;
+      transition: color 0.2s;
     }
-
-    .modal .close:hover {
+    .modal-box .close:hover {
       color: white;
     }
 
@@ -162,8 +220,21 @@
 </head>
 <body>
 
-  <h1>Client Library</h1>
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="clients.html">Clients</a></li>
+    </ul>
+  </nav>
 
+  <!-- Hero Header -->
+  <header class="hero">
+    <h1>Client Library</h1>
+    <p>Search, filter, and download your favorite Minecraft clients.</p>
+  </header>
+
+  <!-- Controls -->
   <div class="controls">
     <input type="text" id="search" class="search-bar" placeholder="Search clients..." />
     <button class="filter-btn active" onclick="filterStatus('all')">All</button>
@@ -171,6 +242,7 @@
     <button class="filter-btn" onclick="filterStatus('unchecked')">Unchecked</button>
   </div>
 
+  <!-- Client Grid -->
   <div class="client-grid" id="clientGrid"></div>
 
   <!-- Modal -->
@@ -183,6 +255,7 @@
     </div>
   </div>
 
+  <!-- Script -->
   <script>
     const clients = [
       { name: "Rise", status: "checked", info: "One of the most trustworthy clients out there, very recommend.", link: "https://drive.google.com/file/d/1vcHxzCuYUlljzBtMp8jtcS0V-uUN9QIo/view?usp=drive_link" },
@@ -218,7 +291,7 @@
           const card = document.createElement('div');
           card.className = "client-card";
           card.innerHTML = `
-            <p><strong>${client.name}</strong></p>
+            <p>${client.name}</p>
             <p class="${client.status === "checked" ? "status-checked" : "status-unchecked"}">
               ${client.status === "checked" ? "✓ Checked" : "✗ Unchecked"}
             </p>`;
@@ -249,7 +322,7 @@
     search.addEventListener("input", displayClients);
     window.onclick = e => { if (e.target === modal) closeModal(); };
 
-    // Initial load
+    // Initial render
     displayClients();
   </script>
 </body>
