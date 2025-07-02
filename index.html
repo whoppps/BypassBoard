@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NoPayWall - Client Status</title>
   <style>
     :root {
@@ -76,6 +76,7 @@
       text-align: center;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
     }
 
     .client-card:hover {
@@ -103,6 +104,68 @@
       margin-top: 4rem;
       font-size: 0.9rem;
     }
+
+    /* MODAL STYLES */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    .modal h3 {
+      margin-top: 0;
+    }
+
+    .modal p {
+      font-size: 0.95rem;
+      margin: 1rem 0;
+    }
+
+    .modal a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1.2rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .modal .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    .modal .close:hover {
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -125,18 +188,18 @@
   <section id="clients">
     <h2>Client Status</h2>
     <div class="client-grid">
-      <div class="client-card"><p>Rise</p><p class="status-checked">✓ Checked</p></div>
-      <div class="client-card"><p>Slinky</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card"><p>Opal</p><p class="status-checked">✓ Checked</p></div>
-      <div class="client-card"><p>Vape</p><p class="status-checked">✓ Checked</p></div>
-      <div class="client-card"><p>Myau</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card"><p>Moon</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card"><p>Augustus</p><p class="status-checked">✓ Checked</p></div>
-      <div class="client-card"><p>Azura</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card"><p>Sigma</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card"><p>Fdp</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card"><p>Dortware</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card"><p>Raven BS</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card" onclick="openModal('Rise')"><p>Rise</p><p class="status-checked">✓ Checked</p></div>
+      <div class="client-card" onclick="openModal('Slinky')"><p>Slinky</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card" onclick="openModal('Opal')"><p>Opal</p><p class="status-checked">✓ Checked</p></div>
+      <div class="client-card" onclick="openModal('Vape')"><p>Vape</p><p class="status-checked">✓ Checked</p></div>
+      <div class="client-card" onclick="openModal('Myau')"><p>Myau</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card" onclick="openModal('Moon')"><p>Moon</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card" onclick="openModal('Augustus')"><p>Augustus</p><p class="status-checked">✓ Checked</p></div>
+      <div class="client-card" onclick="openModal('Azura')"><p>Azura</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card" onclick="openModal('Sigma')"><p>Sigma</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card" onclick="openModal('Fdp')"><p>Fdp</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card" onclick="openModal('Dortware')"><p>Dortware</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card" onclick="openModal('Raven BS')"><p>Raven BS</p><p class="status-unchecked">✗ Unchecked</p></div>
     </div>
   </section>
 
@@ -151,6 +214,90 @@
   <footer>
     &copy; 2025 NoPayWall Project — Made with ❤️
   </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3 id="modal-title">Client Name</h3>
+      <p id="modal-info">Basic info about the client goes here. You can customize this per client.</p>
+      <a href="#" id="modal-link" target="_blank">Download</a>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalInfo = document.getElementById('modal-info');
+    const modalLink = document.getElementById('modal-link');
+
+    const clientData = {
+      "Rise": {
+        info: "Rise is a popular PvP client with various modules.",
+        link: "https://yourdomain.com/downloads/rise.zip"
+      },
+      "Slinky": {
+        info: "Slinky is still under review.",
+        link: "#"
+      },
+      "Opal": {
+        info: "Opal client is optimized for ghost features.",
+        link: "https://yourdomain.com/downloads/opal.zip"
+      },
+      "Vape": {
+        info: "Vape client is widely used for ghost cheats.",
+        link: "https://yourdomain.com/downloads/vape.zip"
+      },
+      "Myau": {
+        info: "Myau is not yet tested.",
+        link: "#"
+      },
+      "Moon": {
+        info: "Moon client is unverified.",
+        link: "#"
+      },
+      "Augustus": {
+        info: "Augustus client has basic bypasses available.",
+        link: "https://yourdomain.com/downloads/augustus.zip"
+      },
+      "Azura": {
+        info: "Azura is pending check.",
+        link: "#"
+      },
+      "Sigma": {
+        info: "Sigma is not supported in this build.",
+        link: "#"
+      },
+      "Fdp": {
+        info: "Fdp has compatibility issues.",
+        link: "#"
+      },
+      "Dortware": {
+        info: "Dortware not yet tested.",
+        link: "#"
+      },
+      "Raven BS": {
+        info: "Raven BS is still under testing.",
+        link: "#"
+      }
+    };
+
+    function openModal(client) {
+      modalTitle.textContent = client;
+      modalInfo.textContent = clientData[client]?.info || "No info available.";
+      modalLink.href = clientData[client]?.link || "#";
+      modalLink.textContent = clientData[client]?.link !== "#" ? "Download" : "No Download";
+      modal.classList.add("active");
+    }
+
+    function closeModal() {
+      modal.classList.remove("active");
+    }
+
+    window.onclick = function(e) {
+      if (e.target === modal) closeModal();
+    }
+  </script>
 
 </body>
 </html>
