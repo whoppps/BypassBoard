@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoPayWall - Client Status</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #1e1e1e;
+      color: #f0f0f0;
+      scroll-behavior: smooth;
+    }
+
+    nav {
+      background: #121212;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav li {
+      margin: 0 1rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #f0f0f0;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #4caf50;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    .client-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .client-card {
+      background: #2a2a2a;
+      border: 2px solid #444;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .status-checked {
+      color: #4caf50;
+      font-weight: bold;
+    }
+
+    .status-unchecked {
+      color: #f44336;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #121212;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#clients">Clients</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <section id="home">
+    <h1>Welcome to NoPayWall</h1>
+    <p style="text-align: center;">This site shows the status of various Minecraft clients for research and testing purposes only.</p>
+  </section>
+
+  <section id="clients">
+    <h2>Client Status</h2>
+    <div class="client-grid">
+      <div class="client-card"><p>Rise</p><p class="status-checked">✓ Checked</p></div>
+      <div class="client-card"><p>Slinky</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card"><p>Opal</p><p class="status-checked">✓ Checked</p></div>
+      <div class="client-card"><p>Vape</p><p class="status-checked">✓ Checked</p></div>
+      <div class="client-card"><p>Myau</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card"><p>Moon</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card"><p>Augustus</p><p class="status-checked">✓ Checked</p></div>
+      <div class="client-card"><p>Azura</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card"><p>Sigma</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card"><p>Fdp</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card"><p>Dortware</p><p class="status-unchecked">✗ Unchecked</p></div>
+      <div class="client-card"><p>Raven BS</p><p class="status-unchecked">✗ Unchecked</p></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+    <p style="text-align: center;">
+      NoPayWall is a personal project to track the testing status of Minecraft-related tools.  
+      This site does not host or distribute any files. For educational and technical review only.
+    </p>
+  </section>
+
+  <footer>
+    &copy; 2025 NoPayWall Project
+  </footer>
+
+</body>
+</html>
