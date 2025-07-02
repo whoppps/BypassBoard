@@ -1,226 +1,256 @@
-<!-- clients.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clients - NoPayWall</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoPayWall Clients</title>
   <style>
+    :root {
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --text: #f0f0f0;
+      --primary: #4caf50;
+      --danger: #f44336;
+      --accent: #2e2e2e;
+      --blue: #00c6ff;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #121212;
-      color: #f0f0f0;
+      background: var(--bg);
+      color: var(--text);
+      padding: 2rem;
     }
-    nav {
-      background: #2e2e2e;
-      padding: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    nav a {
-      text-decoration: none;
-      color: #f0f0f0;
-      font-weight: bold;
-    }
-    nav a:hover {
-      color: #4caf50;
-    }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 2rem 1rem;
-    }
+
     h1 {
       text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
     }
-    #search {
-      width: 100%;
-      padding: 0.75rem;
-      font-size: 1rem;
-      margin-top: 1rem;
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .search-bar {
+      padding: 0.7rem 1rem;
       border-radius: 8px;
       border: none;
       outline: none;
-      background: #2e2e2e;
-      color: white;
+      width: 220px;
+      font-size: 1rem;
     }
-    .filter-bar {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-    .filter-bar button {
-      background: #2e2e2e;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
+
+    .filter-btn {
+      padding: 0.6rem 1.2rem;
       border-radius: 6px;
+      border: none;
+      font-weight: bold;
       cursor: pointer;
+      background: var(--accent);
+      color: var(--text);
+      transition: all 0.2s ease;
     }
-    .filter-bar button.active {
-      background: #4caf50;
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--blue);
+      color: white;
     }
+
     .client-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 1.5rem;
-      margin-top: 1rem;
     }
+
     .client-card {
-      background: #1e1e1e;
+      background: var(--card-bg);
       border-radius: 12px;
       padding: 1rem;
       text-align: center;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       cursor: pointer;
-      transition: transform 0.2s ease;
     }
+
     .client-card:hover {
-      transform: translateY(-5px);
-      background: #2a2a2a;
+      transform: translateY(-4px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
     }
+
+    .status-checked {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .status-unchecked {
+      color: var(--danger);
+      font-weight: bold;
+    }
+
+    /* Modal */
     .modal {
-      display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.75);
-      justify-content: center;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: none;
       align-items: center;
+      justify-content: center;
       z-index: 1000;
     }
+
     .modal.active {
       display: flex;
     }
+
     .modal-box {
-      background: #1e1e1e;
+      background: var(--card-bg);
       padding: 2rem;
       border-radius: 10px;
+      text-align: center;
       width: 90%;
       max-width: 400px;
-      text-align: center;
+      position: relative;
+      animation: fadeIn 0.3s ease;
     }
+
+    .modal h3 {
+      margin-top: 0;
+    }
+
+    .modal p {
+      font-size: 0.95rem;
+      margin: 1rem 0;
+    }
+
     .modal a {
-      margin-top: 1rem;
       display: inline-block;
-      padding: 0.5rem 1.2rem;
-      background: #4caf50;
+      padding: 0.5rem 1rem;
+      background: var(--blue);
       color: white;
       border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
+      margin-top: 1rem;
     }
-    .close {
+
+    .modal .close {
       position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 2rem;
-      color: white;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
       cursor: pointer;
+      color: #999;
+    }
+
+    .modal .close:hover {
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="clients.html">Clients</a>
-  </nav>
 
-  <div class="container">
-    <h1>All Clients</h1>
-    <input type="text" id="search" placeholder="Search clients...">
-    <div class="filter-bar">
-      <button onclick="filterStatus('all')" class="active">All</button>
-      <button onclick="filterStatus('checked')">Checked</button>
-      <button onclick="filterStatus('unchecked')">Unchecked</button>
-    </div>
-    <div class="client-grid" id="clientGrid"></div>
+  <h1>Client Library</h1>
+
+  <div class="controls">
+    <input type="text" id="search" class="search-bar" placeholder="Search clients..." />
+    <button class="filter-btn active" onclick="filterStatus('all')">All</button>
+    <button class="filter-btn" onclick="filterStatus('checked')">Checked</button>
+    <button class="filter-btn" onclick="filterStatus('unchecked')">Unchecked</button>
   </div>
 
+  <div class="client-grid" id="clientGrid"></div>
+
+  <!-- Modal -->
   <div class="modal" id="modal">
     <div class="modal-box">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h3 id="modalTitle">Client Name</h3>
-      <p id="modalInfo">Client Info</p>
-      <a href="#" target="_blank" id="modalLink">Download</a>
+      <h3 id="modal-title">Client Name</h3>
+      <p id="modal-info">Client description here</p>
+      <a href="#" id="modal-link" target="_blank">Download</a>
     </div>
   </div>
 
   <script>
     const clients = [
-      { name: "Rise", status: "checked", category: "trusted", info: "One of the most trustworthy clients out there, very recommend.", link: "https://drive.google.com/file/d/1vcHxzCuYUlljzBtMp8jtcS0V-uUN9QIo/view?usp=drive_link" },
-      { name: "Slinky", status: "unchecked", category: "sketchy", info: "It's kinda a sketchy client, use at your own risk.", link: "https://drive.google.com/file/d/1Nf_UJMpysIqLg3yLLTkoBYVuzyFXrASU/view?usp=drive_link" },
-      { name: "Opal", status: "checked", category: "hypixel", info: "Made for Hypixel, has very good bypasses.", link: "https://drive.google.com/file/d/1depGl4bl3P8LyDx-fKuSQ267dinglaK8/view?usp=drive_link" },
-      { name: "Vape", status: "checked", category: "trusted", info: "One of the most trustworthy clients out there, but hasn't received an update in a long time.", link: "https://drive.google.com/file/d/15kipNJZBRyeMZgjJQHrkh7NnpB886CqZ/view?usp=drive_link" },
-      { name: "Myau", status: "unchecked", category: "hypixel", info: "Very good for Hypixel.", link: "https://drive.google.com/file/d/1-Wa5xFJHp93g_WnH2y4p4rkyREAXF8vN/view?usp=drive_link" },
-      { name: "Moon", status: "unchecked", category: "discontinued", info: "Discontinued, but has the cleanest interface.", link: "https://drive.google.com/file/d/1BsUxMMdLZJJItMWmuiHVRrdKTmEXCKUz/view?usp=drive_link" },
-      { name: "Augustus", status: "checked", category: "bypass", info: "Very good bypasses, but hard to use for beginners.", link: "https://drive.google.com/file/d/1t575rr-972Yzw4DjBU5K22gdu24IhwW8/view?usp=drive_link" },
-      { name: "Azura", status: "unchecked", category: "random", info: "Random NN client.", link: "https://drive.google.com/file/d/1AtUa38XywmtYDOlBoHUlthQmXLesjkFh/view?usp=drive_link" },
-      { name: "Sigma", status: "unchecked", category: "outdated", info: "Outdated af client.", link: "https://drive.google.com/file/d/1rJrXufoGN5apzRi0VgDQrX8i7ZQz6vA5/view?usp=drive_link" },
-      { name: "Fdp", status: "unchecked", category: "skid", info: "It's just a LiquidBounce skid.", link: "https://drive.google.com/file/d/1XJuDH4yT5BpRxnpBhF70Vl8zg--NfZY5/view?usp=drive_link" },
-      { name: "Dortware", status: "unchecked", category: "random", info: "Random NN client.", link: "https://drive.google.com/file/d/1GuuwrmAKxBDyQ4wSMxFUir_XnrF-vv5E/view?usp=drive_link" },
-      { name: "Raven BS", status: "unchecked", category: "decent", info: "Decent client, with slow updates.", link: "https://drive.google.com/file/d/1Yq3zWFN-15gLkW9V-rLQ68eKKB8MF8o1/view?usp=drive_link" },
+      { name: "Rise", status: "checked", info: "One of the most trustworthy clients out there, very recommend.", link: "https://drive.google.com/file/d/1vcHxzCuYUlljzBtMp8jtcS0V-uUN9QIo/view?usp=drive_link" },
+      { name: "Slinky", status: "unchecked", info: "It's kinda a sketchy client, use at your own risk.", link: "https://drive.google.com/file/d/1Nf_UJMpysIqLg3yLLTkoBYVuzyFXrASU/view?usp=drive_link" },
+      { name: "Opal", status: "checked", info: "Made for Hypixel, has very good bypasses.", link: "https://drive.google.com/file/d/1depGl4bl3P8LyDx-fKuSQ267dinglaK8/view?usp=drive_link" },
+      { name: "Vape", status: "checked", info: "One of the most trustworthy clients out there, but hasn't received an update in a long time.", link: "https://drive.google.com/file/d/15kipNJZBRyeMZgjJQHrkh7NnpB886CqZ/view?usp=drive_link" },
+      { name: "Myau", status: "unchecked", info: "Very good for Hypixel.", link: "https://drive.google.com/file/d/1-Wa5xFJHp93g_WnH2y4p4rkyREAXF8vN/view?usp=drive_link" },
+      { name: "Moon", status: "unchecked", info: "Discontinued, but has the cleanest interface.", link: "https://drive.google.com/file/d/1BsUxMMdLZJJItMWmuiHVRrdKTmEXCKUz/view?usp=drive_link" },
+      { name: "Augustus", status: "checked", info: "Very good bypasses, but hard to use for beginners.", link: "https://drive.google.com/file/d/1t575rr-972Yzw4DjBU5K22gdu24IhwW8/view?usp=drive_link" },
+      { name: "Azura", status: "unchecked", info: "Random NN client.", link: "https://drive.google.com/file/d/1AtUa38XywmtYDOlBoHUlthQmXLesjkFh/view?usp=drive_link" },
+      { name: "Sigma", status: "unchecked", info: "Outdated af client.", link: "https://drive.google.com/file/d/1rJrXufoGN5apzRi0VgDQrX8i7ZQz6vA5/view?usp=drive_link" },
+      { name: "Fdp", status: "unchecked", info: "It's just a LiquidBounce skid.", link: "https://drive.google.com/file/d/1XJuDH4yT5BpRxnpBhF70Vl8zg--NfZY5/view?usp=drive_link" },
+      { name: "Dortware", status: "unchecked", info: "Random NN client.", link: "https://drive.google.com/file/d/1GuuwrmAKxBDyQ4wSMxFUir_XnrF-vv5E/view?usp=drive_link" },
+      { name: "Raven BS", status: "unchecked", info: "Decent client, with slow updates.", link: "https://drive.google.com/file/d/1Yq3zWFN-15gLkW9V-rLQ68eKKB8MF8o1/view?usp=drive_link" }
     ];
 
-    const clientGrid = document.getElementById('clientGrid');
-    const searchInput = document.getElementById('search');
+    const grid = document.getElementById('clientGrid');
+    const search = document.getElementById('search');
     const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalInfo = document.getElementById('modalInfo');
-    const modalLink = document.getElementById('modalLink');
+    const modalTitle = document.getElementById('modal-title');
+    const modalInfo = document.getElementById('modal-info');
+    const modalLink = document.getElementById('modal-link');
+    let currentFilter = "all";
 
-    function renderClients(filterStatus = 'all', keyword = '') {
-      clientGrid.innerHTML = '';
-      const filtered = clients.filter(c => {
-        const matchStatus = filterStatus === 'all' || c.status === filterStatus;
-        const matchSearch = c.name.toLowerCase().includes(keyword.toLowerCase());
-        return matchStatus && matchSearch;
-      });
-
-      filtered.forEach(client => {
-        const card = document.createElement('div');
-        card.className = 'client-card';
-        card.innerHTML = `<h4>${client.name}</h4><p>${client.status}</p>`;
-        card.onclick = () => {
-          modalTitle.textContent = client.name;
-          modalInfo.textContent = client.info;
-          modalLink.href = client.link;
-          modal.classList.add('active');
-        };
-        clientGrid.appendChild(card);
+    function displayClients() {
+      const keyword = search.value.toLowerCase();
+      grid.innerHTML = "";
+      clients.forEach(client => {
+        if (
+          (currentFilter === "all" || client.status === currentFilter) &&
+          client.name.toLowerCase().includes(keyword)
+        ) {
+          const card = document.createElement('div');
+          card.className = "client-card";
+          card.innerHTML = `
+            <p><strong>${client.name}</strong></p>
+            <p class="${client.status === "checked" ? "status-checked" : "status-unchecked"}">
+              ${client.status === "checked" ? "✓ Checked" : "✗ Unchecked"}
+            </p>`;
+          card.onclick = () => openModal(client);
+          grid.appendChild(card);
+        }
       });
     }
 
-    let currentStatus = 'all';
-
-    function filterStatus(status) {
-      currentStatus = status;
-      document.querySelectorAll('.filter-bar button').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      renderClients(status, searchInput.value);
+    function openModal(client) {
+      modalTitle.textContent = client.name;
+      modalInfo.textContent = client.info;
+      modalLink.href = client.link;
+      modal.classList.add("active");
     }
 
     function closeModal() {
-      modal.classList.remove('active');
+      modal.classList.remove("active");
     }
 
-    searchInput.addEventListener('input', () => {
-      renderClients(currentStatus, searchInput.value);
-    });
-
-    window.onclick = function(e) {
-      if (e.target === modal) closeModal();
+    function filterStatus(status) {
+      currentFilter = status;
+      document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+      document.querySelector(`.filter-btn[onclick*="${status}"]`).classList.add("active");
+      displayClients();
     }
 
-    renderClients();
+    search.addEventListener("input", displayClients);
+    window.onclick = e => { if (e.target === modal) closeModal(); };
+
+    // Initial load
+    displayClients();
   </script>
 </body>
 </html>
