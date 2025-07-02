@@ -10,22 +10,18 @@
       --nav-bg: #171717;
       --accent-bg: #1e1e1e;
       --text: #f0f0f0;
-      --primary: #00c6ff;    /* blue for checked */
-      --danger: #f44336;     /* red for unchecked */
+      --primary: #00c6ff;
+      --danger: #f44336;
       --blue1: #0072ff;
       --blue2: #00c6ff;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
       font-family: 'Segoe UI', sans-serif;
     }
-
-    /* Nav */
     nav {
       position: sticky;
       top: 0;
@@ -51,8 +47,6 @@
     nav a:hover {
       color: var(--blue2);
     }
-
-    /* Hero */
     header.hero {
       text-align: center;
       padding: 3rem 1rem;
@@ -70,8 +64,6 @@
       max-width: 600px;
       margin: 0 auto;
     }
-
-    /* Controls */
     .controls {
       display: flex;
       flex-wrap: wrap;
@@ -108,8 +100,6 @@
       background: var(--blue2);
       color: #fff;
     }
-
-    /* Grid (hidden by default) */
     .client-grid {
       display: none;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -119,8 +109,6 @@
     .client-grid.show {
       display: grid;
     }
-
-    /* Cards */
     .client-card {
       background: var(--accent-bg);
       border-radius: 12px;
@@ -155,8 +143,6 @@
       color: var(--danger);
       margin-top: 0.5rem;
     }
-
-    /* Modal */
     .modal {
       position: fixed;
       top: 0; left: 0;
@@ -213,7 +199,6 @@
     .modal-box .close:hover {
       color: white;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
@@ -222,7 +207,6 @@
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
@@ -230,13 +214,11 @@
     </ul>
   </nav>
 
-  <!-- Hero Header -->
   <header class="hero">
     <h1>Client Library</h1>
-    <p>Search, filter, and download your Cracked Minecraft clients.</p>
+    <p>Search, filter, and download your favorite Minecraft clients.</p>
   </header>
 
-  <!-- Controls -->
   <div class="controls">
     <input type="text" id="search" class="search-bar" placeholder="Search clients..." />
     <button class="filter-btn active" onclick="filterStatus('all')">All</button>
@@ -244,10 +226,8 @@
     <button class="filter-btn" onclick="filterStatus('unchecked')">Unchecked</button>
   </div>
 
-  <!-- Client Grid (hidden until search/filter) -->
   <div class="client-grid" id="clientGrid"></div>
 
-  <!-- Modal -->
   <div class="modal" id="modal">
     <div class="modal-box">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -257,21 +237,20 @@
     </div>
   </div>
 
-  <!-- Script -->
   <script>
     const clients = [
-      { name: "Rise",    status: "checked",   info: "One of the most trustworthy clients out there, very recommend.", link: "https://drive.google.com/.../1vcHxzCuYUlljzBtMp8jtcS0V-uUN9QIo" },
-      { name: "Slinky",  status: "unchecked", info: "It's kinda a sketchy client, use at your own risk.", link: "https://drive.google.com/.../1Nf_UJMpysIqLg3yLLTkoBYVuzyFXrASU" },
-      { name: "Opal",    status: "checked",   info: "Made for Hypixel, has very good bypasses.", link: "https://drive.google.com/.../1depGl4bl3P8LyDx-fKuSQ267dinglaK8" },
-      { name: "Vape",    status: "checked",   info: "One of the most trustworthy clients out there, but hasn't received an update in a long time.", link: "https://drive.google.com/.../15kipNJZBRyeMZgjJQHrkh7NnpB886CqZ" },
-      { name: "Myau",    status: "unchecked", info: "Very good for Hypixel.", link: "https://drive.google.com/.../1-Wa5xFJHp93g_WnH2y4p4rkyREAXF8vN" },
-      { name: "Moon",    status: "unchecked", info: "Discontinued, but has the cleanest interface.", link: "https://drive.google.com/.../1BsUxMMdLZJJItMWmuiHVRrdKTmEXCKUz" },
-      { name: "Augustus",status: "checked",   info: "Very good bypasses, but hard to use for beginners.", link: "https://drive.google.com/.../1t575rr-972Yzw4DjBU5K22gdu24IhwW8" },
-      { name: "Azura",   status: "unchecked", info: "Random NN client.", link: "https://drive.google.com/.../1AtUa38XywmtYDOlBoHUlthQmXLesjkFh" },
-      { name: "Sigma",   status: "unchecked", info: "Outdated af client.", link: "https://drive.google.com/.../1rJrXufoGN5apzRi0VgDQrX8i7ZQz6vA5" },
-      { name: "Fdp",     status: "unchecked", info: "It's just a LiquidBounce skid.", link: "https://drive.google.com/.../1XJuDH4yT5BpRxnpBhF70Vl8zg--NfZY5" },
-      { name: "Dortware",status: "unchecked", info: "Random NN client.", link: "https://drive.google.com/.../1GuuwrmAKxBDyQ4wSMxFUir_XnrF-vv5E" },
-      { name: "Raven BS",status: "unchecked", info: "Decent client, with slow updates.", link: "https://drive.google.com/.../1Yq3zWFN-15gLkW9V-rLQ68eKKB8MF8o1" }
+      { name: "Rise",    status: "checked",   info: "One of the most trustworthy clients out there, very recommend.", link: "https://drive.google.com/file/d/1vcHxzCuYUlljzBtMp8jtcS0V-uUN9QIo/view?usp=drive_link" },
+      { name: "Slinky",  status: "unchecked", info: "It's kinda a sketchy client, use at your own risk.", link: "https://drive.google.com/file/d/1Nf_UJMpysIqLg3yLLTkoBYVuzyFXrASU/view?usp=drive_link" },
+      { name: "Opal",    status: "checked",   info: "Made for Hypixel, has very good bypasses.", link: "https://drive.google.com/file/d/1depGl4bl3P8LyDx-fKuSQ267dinglaK8/view?usp=drive_link" },
+      { name: "Vape",    status: "checked",   info: "One of the most trustworthy clients out there, but hasn't received an update in a long time.", link: "https://drive.google.com/file/d/15kipNJZBRyeMZgjJQHrkh7NnpB886CqZ/view?usp=drive_link" },
+      { name: "Myau",    status: "unchecked", info: "Very good for Hypixel.", link: "https://drive.google.com/file/d/1-Wa5xFJHp93g_WnH2y4p4rkyREAXF8vN/view?usp=drive_link" },
+      { name: "Moon",    status: "unchecked", info: "Discontinued, but has the cleanest interface.", link: "https://drive.google.com/file/d/1BsUxMMdLZJJItMWmuiHVRrdKTmEXCKUz/view?usp=drive_link" },
+      { name: "Augustus",status: "checked",   info: "Very good bypasses, but hard to use for beginners.", link: "https://drive.google.com/file/d/1t575rr-972Yzw4DjBU5K22gdu24IhwW8/view?usp=drive_link" },
+      { name: "Azura",   status: "unchecked", info: "Random NN client.", link: "https://drive.google.com/file/d/1AtUa38XywmtYDOlBoHUlthQmXLesjkFh/view?usp=drive_link" },
+      { name: "Sigma",   status: "unchecked", info: "Outdated af client.", link: "https://drive.google.com/file/d/1rJrXufoGN5apzRi0VgDQrX8i7ZQz6vA5/view?usp=drive_link" },
+      { name: "Fdp",     status: "unchecked", info: "It's just a LiquidBounce skid.", link: "https://drive.google.com/file/d/1XJuDH4yT5BpRxnpBhF70Vl8zg--NfZY5/view?usp=drive_link" },
+      { name: "Dortware",status: "unchecked", info: "Random NN client.", link: "https://drive.google.com/file/d/1GuuwrmAKxBDyQ4wSMxFUir_XnrF-vv5E/view?usp=drive_link" },
+      { name: "Raven BS",status: "unchecked", info: "Decent client, with slow updates.", link: "https://drive.google.com/file/d/1Yq3zWFN-15gLkW9V-rLQ68eKKB8MF8o1/view?usp=drive_link" }
     ];
 
     const grid      = document.getElementById('clientGrid');
@@ -298,7 +277,6 @@
           grid.appendChild(card);
         }
       });
-      // Show grid only after filtering/search
       grid.classList.toggle('show', grid.children.length > 0);
     }
 
@@ -322,8 +300,6 @@
 
     search.addEventListener('input', displayClients);
     window.addEventListener('click', e => { if (e.target===modal) closeModal(); });
-
-    // no initial render: grid remains hidden until search/filter
   </script>
 </body>
 </html>
