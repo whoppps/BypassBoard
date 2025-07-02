@@ -1,303 +1,70 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NoPayWall - Cracked Clients</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoPayWall</title>
   <style>
-    :root {
-      --bg: #121212;
-      --card-bg: #1e1e1e;
-      --text: #f0f0f0;
-      --primary: #4caf50;
-      --danger: #f44336;
-      --accent: #2e2e2e;
-    }
-
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      scroll-behavior: smooth;
+      background: #121212;
+      color: #f0f0f0;
     }
-
     nav {
-      background: var(--accent);
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    nav ul {
-      list-style: none;
+      background: #2e2e2e;
+      padding: 1rem;
       display: flex;
       justify-content: center;
       gap: 2rem;
-      margin: 0;
-      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-
     nav a {
       text-decoration: none;
-      color: var(--text);
+      color: #f0f0f0;
       font-weight: bold;
-      transition: color 0.2s ease;
     }
-
     nav a:hover {
-      color: var(--primary);
+      color: #4caf50;
     }
-
     section {
-      padding: 4rem 1.5rem;
-      max-width: 1000px;
+      max-width: 800px;
       margin: auto;
-    }
-
-    h1, h2 {
+      padding: 4rem 1rem;
       text-align: center;
-      margin-bottom: 1rem;
     }
-
-    .client-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .client-card {
-      background: var(--card-bg);
-      border-radius: 15px;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
-    }
-
-    .client-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
-    }
-
-    .status-checked {
-      color: var(--primary);
-      font-weight: bold;
-      margin-top: 0.5rem;
-    }
-
-    .status-unchecked {
-      color: var(--danger);
-      font-weight: bold;
-      margin-top: 0.5rem;
-    }
-
     footer {
       text-align: center;
       padding: 2rem 1rem;
-      background: var(--accent);
+      background: #2e2e2e;
       color: #888;
       margin-top: 4rem;
       font-size: 0.9rem;
     }
-
-    /* MODAL STYLES */
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.75);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-box {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 15px;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      position: relative;
-    }
-
-    .modal h3 {
-      margin-top: 0;
-    }
-
-    .modal p {
-      font-size: 0.95rem;
-      margin: 1rem 0;
-    }
-
-    .modal a {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.5rem 1.2rem;
-      background: var(--primary);
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .modal .close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #aaa;
-    }
-
-    .modal .close:hover {
-      color: white;
-    }
   </style>
 </head>
 <body>
-
   <nav>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#clients">Clients</a></li>
-      <li><a href="#about">About</a></li>
-    </ul>
+    <a href="index.html">Home</a>
+    <a href="clients.html">Clients</a>
+    <a href="#about">About</a>
   </nav>
 
-  <section id="home">
-    <h1>NoPayWall</h1>
-    <p style="text-align: center; max-width: 600px; margin: 0 auto;">
-      A repo with cracked clients built with love <3
-    </p>
-  </section>
-
-  <section id="clients">
-    <h2>Client Status</h2>
-    <div class="client-grid">
-      <div class="client-card" onclick="openModal('Rise')"><p>Rise</p><p class="status-checked">✓ Checked</p></div>
-      <div class="client-card" onclick="openModal('Slinky')"><p>Slinky</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card" onclick="openModal('Opal')"><p>Opal</p><p class="status-checked">✓ Checked</p></div>
-      <div class="client-card" onclick="openModal('Vape')"><p>Vape</p><p class="status-checked">✓ Checked</p></div>
-      <div class="client-card" onclick="openModal('Myau')"><p>Myau</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card" onclick="openModal('Moon')"><p>Moon</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card" onclick="openModal('Augustus')"><p>Augustus</p><p class="status-checked">✓ Checked</p></div>
-      <div class="client-card" onclick="openModal('Azura')"><p>Azura</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card" onclick="openModal('Sigma')"><p>Sigma</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card" onclick="openModal('Fdp')"><p>Fdp</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card" onclick="openModal('Dortware')"><p>Dortware</p><p class="status-unchecked">✗ Unchecked</p></div>
-      <div class="client-card" onclick="openModal('Raven BS')"><p>Raven BS</p><p class="status-unchecked">✗ Unchecked</p></div>
-    </div>
+  <section>
+    <h1>Welcome to NoPayWall</h1>
+    <p>This project tracks the status of various Minecraft clients for internal testing. No downloads are hosted here.</p>
   </section>
 
   <section id="about">
     <h2>About</h2>
-    <p style="text-align: center; max-width: 600px; margin: 0 auto;">
-      NoPayWall is a hobby project focused on Minecraft modding
-      Created for learning and personal use only.
-    </p>
+    <p>NoPayWall is a hobby project focused on user interface, testing status, and web development learning.</p>
   </section>
 
   <footer>
     &copy; 2025 NoPayWall Project — Made with ❤️
   </footer>
-
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-box">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h3 id="modal-title">Client Name</h3>
-      <p id="modal-info">Basic info about the client goes here.</p>
-      <a href="#" id="modal-link" target="_blank">Download</a>
-    </div>
-  </div>
-
-  <script>
-    const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalInfo = document.getElementById('modal-info');
-    const modalLink = document.getElementById('modal-link');
-
-    const clientData = {
-      "Rise": {
-        info: "One of the most trustworthy clients out there, very recommend.",
-        link: "https://yourdomain.com/downloads/rise.zip"
-      },
-      "Slinky": {
-        info: "It's kinda a sketchy client, use at your own risk.",
-        link: "https://yourdomain.com/downloads/slinky.zip"
-      },
-      "Opal": {
-        info: "Made for Hypixel, has very good bypasses.",
-        link: "https://yourdomain.com/downloads/opal.zip"
-      },
-      "Vape": {
-        info: "One of the most trustworthy clients out there, but hasn't received an update in a long time.",
-        link: "https://yourdomain.com/downloads/vape.zip"
-      },
-      "Myau": {
-        info: "Very good for Hypixel.",
-        link: "https://yourdomain.com/downloads/myau.zip"
-      },
-      "Moon": {
-        info: "Discontinued, but has the cleanest interface.",
-        link: "https://yourdomain.com/downloads/moon.zip"
-      },
-      "Augustus": {
-        info: "Very good bypasses, but hard to use for beginners.",
-        link: "https://yourdomain.com/downloads/augustus.zip"
-      },
-      "Azura": {
-        info: "Random NN client.",
-        link: "https://yourdomain.com/downloads/azura.zip"
-      },
-      "Sigma": {
-        info: "Outdated af client.",
-        link: "https://yourdomain.com/downloads/sigma.zip"
-      },
-      "Fdp": {
-        info: "It's just a LiquidBounce skid.",
-        link: "https://yourdomain.com/downloads/fdp.zip"
-      },
-      "Dortware": {
-        info: "Random NN client.",
-        link: "https://yourdomain.com/downloads/dortware.zip"
-      },
-      "Raven BS": {
-        info: "Decent client, with slow updates.",
-        link: "https://yourdomain.com/downloads/ravenbs.zip"
-      }
-    };
-
-    function openModal(client) {
-      modalTitle.textContent = client;
-      modalInfo.textContent = clientData[client]?.info || "No info available.";
-      modalLink.href = clientData[client]?.link || "#";
-      modalLink.textContent = clientData[client]?.link !== "#" ? "Download" : "No Download";
-      modal.classList.add("active");
-    }
-
-    function closeModal() {
-      modal.classList.remove("active");
-    }
-
-    window.onclick = function(e) {
-      if (e.target === modal) closeModal();
-    }
-  </script>
-
 </body>
 </html>
