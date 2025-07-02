@@ -1,5 +1,5 @@
 # NoPayWall
-Fuck paywall
+Fuck paywall, this is a repo for poor people
 
 
 # IMPORTANT
