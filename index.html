@@ -13,13 +13,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       height: 100vh;
       text-align: center;
-      overflow: hidden;
     }
 
     h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       line-height: 1.2;
     }
 
@@ -36,14 +36,34 @@
       margin-top: 1rem;
       max-width: 600px;
     }
+
+    .btn {
+      display: inline-block;
+      margin-top: 2.5rem;
+      padding: 0.75rem 2rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #0072ff, #00c6ff);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 0 12px rgba(0, 114, 255, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(0, 114, 255, 0.7);
+    }
   </style>
 </head>
 <body>
 
-  <div>
-    <h1>Welcome to <span class="highlight" id="cycling-text">NoPayWall</span></h1>
-    <p>NoPayWall is a hobby project focused on user interface, testing status, and web development learning.</p>
-  </div>
+  <h1>Welcome to <span class="highlight" id="cycling-text">NoPayWall</span></h1>
+  <p>NoPayWall is a hobby project focused on user interface, testing status, and web development learning.</p>
+
+  <a href="clients.html" class="btn">View Clients</a>
 
   <script>
     const phrases = ["NoPayWall", "Cracked clients", "FuckPaywall"];
